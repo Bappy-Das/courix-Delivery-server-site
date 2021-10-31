@@ -30,12 +30,15 @@ async function run() {
             // console.log(result)
             res.json(result)
         })
+
         // get Service Data
         app.get('/services', async (req, res) => {
             const cursor = serviceCollection.find({});
             const services = await cursor.toArray();
             res.send(services)
         })
+
+
         // get single service
         app.get('/services/:id', async (req, res) => {
             const id = req.params.id;
@@ -43,6 +46,7 @@ async function run() {
             const service = await serviceCollection.findOne(query);
             res.json(service)
         })
+
         // Book order/Post order
         app.post('/shipping', async (req, res) => {
             const order = req.body
@@ -53,12 +57,14 @@ async function run() {
             res.json(result)
             // res.send("ok")
         })
+
         // get Order
         app.get('/order', async (req, res) => {
             const cursor = orderCollection.find({});
             const services = await cursor.toArray();
             res.send(services)
         })
+
         // Delete Order
         app.delete('/order/:id', async (req, res) => {
             const id = req.params.id;
@@ -67,6 +73,7 @@ async function run() {
             res.json(result);
         })
 
+        // Update approved status via call id
         app.put('/updateOrder', async (req, res) => {
             const id = req.body.id;
             const query = { _id: ObjectId(id) }

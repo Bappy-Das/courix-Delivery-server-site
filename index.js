@@ -67,6 +67,19 @@ async function run() {
             res.json(result);
         })
 
+        app.put('/updateOrder', async (req, res) => {
+            const id = req.body.id;
+            const query = { _id: ObjectId(id) }
+            const options = { upsert: true };
+            const updatedDoc = {
+                $set: {
+                    'status': 'Approved'
+                }
+            };
+            const result = await orderCollection.updateOne(query, updatedDoc, options);
+            res.send(result)
+        })
+
     }
     finally {
         // await client.close();
